@@ -1,25 +1,33 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import circle from "./img/circle.png";
+import "./app.css";
+import Menu from "./drop-menu";
+import Watch from "./watch";
+import data from "../src/data/data.json";
+import Main from "./main";
+import { connect } from "react-redux";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends React.Component {
+  render() {
+    const selectedLang = this.props.selectLanguage;
+    const ruRew = Object.values(data.ru);
+    const enRew = Object.values(data.en);
+    return (
+      <>
+        <div className="header">
+          <img className="header__img" src={circle} alt="#" />
+          <Menu/>
+          <Watch />
+        </div>
+        <div>
+          <Main reviews={selectedLang === "Ru" ? ruRew : enRew} />
+        </div>
+      </>
+    );
+  }
 }
 
-export default App;
+const mapStateToProps = (state) => ({
+  selectLanguage: state.moveWithLanguages.selectLanguage,
+});
+export default connect(mapStateToProps)(App);
