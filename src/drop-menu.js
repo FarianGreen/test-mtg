@@ -24,7 +24,7 @@ const Menu = ({ languages, changeLanguage }) => {
   );
 };
 const mapStateToProps = (state) => ({
-  languages: state.moveWithLanguages.languages,
+  languages: state.moveWithLanguages.languages
 });
 const mapDispatchToProps = {
   changeLanguage: setLanguageAction,

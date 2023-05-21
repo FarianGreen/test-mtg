@@ -1,23 +1,14 @@
 import React, { Component } from "react";
 import ReviewItem from "./ReviewItem";
+import { connect } from "react-redux";
+import { changePage } from "./actions";
 
 class Main extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      currentPage: 1,
-    };
-  }
-
-  handlePageChange = (pageNumber) => {
-    this.setState({
-      currentPage: pageNumber,
-    });
-  };
-
   render() {
-    const { reviews } = this.props;
-    const { currentPage } = this.state;
+    const { data, handlePageChange, selectLanguage, currentPage } = this.props;
+    const ruRew = Object.values(data.ru);
+    const enRew = Object.values(data.en);
+    const reviews = selectLanguage === "Ru" ? ruRew : enRew;
     const reviewsPerPage = 10;
     const indexOfLastReview = currentPage * reviewsPerPage;
     const indexOfFirstReview = indexOfLastReview - reviewsPerPage;
@@ -40,7 +31,7 @@ class Main extends Component {
           {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
             <button
               key={page}
-              onClick={() => this.handlePageChange(page)}
+              onClick={() => handlePageChange(page)}
               className={currentPage === page ? "active" : ""}
             >
               {page}
@@ -51,5 +42,12 @@ class Main extends Component {
     );
   }
 }
-
-export default Main;
+const mapStateToProps = (state) => ({
+  data: state.moveWithMain.data,
+  currentPage: state.moveWithMain.currentPage,
+  selectLanguage: state.moveWithLanguages.selectLanguage,
+});
+const mapDispatchToProps = {
+  handlePageChange: changePage,
+};
+export default connect(mapStateToProps, mapDispatchToProps)(Main);

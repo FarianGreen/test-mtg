@@ -1,8 +1,15 @@
 const setLanguageAction = (newLang) => {
   return {
     type: "SET_LANGUAGE",
-    selectLanguage: newLang,
+    payload: newLang,
   };
 };
 
-export { setLanguageAction };
+const changePage = (newPage) => {
+  return {
+    type: "CHANGE_PAGE",
+    payload: newPage,
+  };
+};
+
+export { setLanguageAction, changePage };

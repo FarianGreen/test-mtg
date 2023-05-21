@@ -1,20 +1,12 @@
-const initialState = {
-  selectLanguage: "Ru",
-  languages: [
-    { id: 1, lang: "Ru" },
-    { id: 2, lang: "En" },
-  ],
-};
-
-const languageReducer = (state = initialState, action) => {
+const languageReducer = (state, action) => {
   switch (action.type) {
     case "SET_LANGUAGE":
       return {
         ...state.moveWithLanguages,
-        selectLanguage: action.selectLanguage,
+        selectLanguage: action.payload,
       };
     default:
-      return state;
+      return state.moveWithLanguages;
   }
 };
 export default languageReducer;
