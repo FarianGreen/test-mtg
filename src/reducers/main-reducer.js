@@ -3,7 +3,7 @@ const mainReducer = (state, action) => {
     case "CHANGE_PAGE":
       return {
         ...state.moveWithMain,
-        currentPage: action.newPage,
+        currentPage: action.payload,
       };
     default:
       return state.moveWithMain;
